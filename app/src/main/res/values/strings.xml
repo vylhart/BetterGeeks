@@ -1,5 +1,33 @@
 <resources>
     <string name="app_name">BetterGeeks</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hilt is a dependency injection library for Android development that simplifies the process of managing and injecting dependencies into your application. It is built on top of the popular dependency injection framework called Dagger.
+
+Dependency injection is a design pattern that allows you to remove explicit dependencies between classes by externalizing the creation and management of objects. This pattern promotes modularity, testability, and reusability of code.
+
+Hilt provides a set of annotations and tools that integrate with Dagger to automate the process of dependency injection in Android applications. It reduces the boilerplate code required to set up and configure Dagger, making it easier to implement dependency injection in your project.
+
+With Hilt, you can define your dependencies using annotations such as @Inject, @Module, @Provides, and @Singleton. Hilt will generate the Dagger components and the necessary code to inject these dependencies into your classes at runtime.
+
+Hilt also offers different scopes for managing the lifecycle of dependencies. For example, you can use the @Singleton annotation to specify that a dependency should have a single instance throughout the application.
+
+Hilt provides Android-specific features, such as the @AndroidEntryPoint annotation, which allows you to use dependency injection in Android components like activities, fragments, services, and broadcast receivers. By annotating these components with @AndroidEntryPoint, Hilt takes care of injecting the required dependencies into them.
+
+To use Hilt in your Android project, you need to include the necessary dependencies in your build.gradle file and set up the Hilt-specific annotations and classes. Hilt integrates with other Jetpack libraries, such as ViewModel and WorkManager, to provide seamless dependency injection for these components as well.
+
+In summary, Hilt is a powerful dependency injection library for Android development that simplifies the process of managing dependencies and promotes modularity and testability in your codebase. It leverages the capabilities of Dagger while reducing the boilerplate code required for configuration and setup.</string>
+    <string name="sample_question">What is dependency injection ?</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+
+    <string name="sample_response_1">
+        "Here is a Python code to check if a given string is a palindrome or not:\n\n```\ndef is_palindrome(string):\n    # remove all non-alphanumeric characters and convert to lowercase\n    clean_string = ''.join(e for e in string if e.isalnum()).lower()\n    # check if the cleaned string is equal to its reverse\n    return clean_string == clean_string[::-1]\n```\n\nYou can call this function with a string as input, and it will return True if the string is a palindrome, and False otherwise. For example:\n\n```\nprint(is_palindrome(\"racecar\")) # prints True\nprint(is_palindrome(\"hello world\")) # prints False\nprint(is_palindrome(\"A man, a plan, a canal: Panama\")) # prints True\n```"
+    </string>
+    <string name="sample_response_2">
+        "Here's the Kotlin code to check if a number is prime or not:\n\nfun isPrime(num: Int): Boolean {\n    if (num == 1) return false\n    \n    for (i in 2..num / 2) {\n        if (num % i == 0) {\n            return false\n        }\n    }\n    \n    return true\n}\n\nIn this code, we first check if the number is less than or equal to 1, which is not a prime number. We then check if the number is divisible by any number between 2 and num/2. If it is, then it's not a prime number. If it's not divisible by any number in that range, then it's a prime number"
+    </string>
+    <string name="enter_your_question">Enter your question</string>
+    <string name="generate_answer">Generate Answer</string>
+    <string name="add_topic">Add topic</string>
+    <string name="enter_topic_name">Enter topic name</string>
 </resources>

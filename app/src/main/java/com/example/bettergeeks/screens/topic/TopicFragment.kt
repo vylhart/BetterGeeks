@@ -1,45 +1,41 @@
 package com.example.bettergeeks.screens.topic
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bettergeeks.R
-import com.example.bettergeeks.databinding.FragmentTopicBinding
-import com.example.bettergeeks.screens.Adapter
-import com.example.bettergeeks.screens.Data
+import com.example.bettergeeks.screens.recycler.Data
+import com.example.bettergeeks.screens.recycler.ListFragment
+import com.example.bettergeeks.screens.recycler.ViewTypes
 import com.example.bettergeeks.utils.Common
+import com.example.bettergeeks.utils.Common.Companion.KEY_TOPIC_ID
+import dagger.hilt.android.AndroidEntryPoint
 
-class TopicFragment : Fragment() {
-    private lateinit var binding: FragmentTopicBinding
+@AndroidEntryPoint
+class TopicFragment : ListFragment() {
+    private val viewModel:TopicViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        Log.i(TAG, "onCreateView: ")
-        binding = FragmentTopicBinding.inflate(inflater, container, false)
-        setupRecyclerView()
-        return binding.root
+    override fun init() {
+        Log.i(TAG, "init: ")
+        binding.recyclerView.layoutManager = GridLayoutManager(activity, 2)
+
+        viewModel.list.observe(requireActivity()) {
+            adapter.submitList(it)
+        }
     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerView.adapter = Adapter { handleClick(it) }
-    }
+    override fun getViewType() = ViewTypes.TOPIC
 
-    private fun handleClick(data: Data) {
-        findNavController().navigate(R.id.action_topicFragment_to_questionListFragment)
+    override fun handleClick(data: Data) {
+        val bundle = bundleOf(KEY_TOPIC_ID to data.id)
+        findNavController().navigate(R.id.action_topicFragment_to_questionListFragment, bundle)
     }
 
     companion object {
         private const val TAG = Common.TAG + "TopicFragment"
-
-        @JvmStatic
-        fun newInstance() = TopicFragment()
     }
-
 
 
 }

@@ -9,15 +9,55 @@
         android:id="@+id/topicFragment"
         android:name="com.example.bettergeeks.screens.topic.TopicFragment"
         android:label="fragment_topic"
-        tools:layout="@layout/fragment_topic" >
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_topicFragment_to_questionListFragment"
             app:destination="@id/questionListFragment" />
+        <action
+            android:id="@+id/action_topicFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_topicFragment_to_addTopicFragment"
+            app:destination="@id/addTopicFragment" />
+        <action
+            android:id="@+id/action_topicFragment_to_askQuestionFragment"
+            app:destination="@id/askQuestionFragment" />
+        <action
+            android:id="@+id/action_topicFragment_to_reviewQuestionFragment"
+            app:destination="@id/reviewQuestionFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/questionListFragment"
-        android:name="com.example.bettergeeks.QuestionListFragment"
+        android:name="com.example.bettergeeks.screens.questions.QuestionListFragment"
         android:label="fragment_question_list"
-        tools:layout="@layout/fragment_question_list" />
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_questionListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.bettergeeks.screens.detail.DetailFragment"
+        android:label="fragment_difficulty"
+        tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_detailFragment_to_questionListFragment"
+            app:destination="@id/questionListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTopicFragment"
+        android:name="com.example.bettergeeks.screens.add_topic.AddTopicFragment"
+        android:label="fragment_add_topic"
+        tools:layout="@layout/fragment_add_topic" />
+    <fragment
+        android:id="@+id/askQuestionFragment"
+        android:name="com.example.bettergeeks.screens.ask_question.AskQuestionFragment"
+        android:label="fragment_ask_question"
+        tools:layout="@layout/fragment_ask_question" />
+    <fragment
+        android:id="@+id/reviewQuestionFragment"
+        android:name="com.example.bettergeeks.screens.review.ReviewQuestionFragment"
+        android:label="fragment_review_question"
+        tools:layout="@layout/fragment_review_question" />
 </navigation>
