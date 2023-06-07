@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.bettergeeks.R
 import com.example.bettergeeks.screens.recycler.Data
 import com.example.bettergeeks.screens.recycler.ListFragment
-import com.example.bettergeeks.screens.recycler.ViewTypes
 import com.example.bettergeeks.utils.Common
 import com.example.bettergeeks.utils.Common.Companion.KEY_QUESTION_ID
 import com.example.bettergeeks.utils.Common.Companion.KEY_TOPIC_ID
@@ -29,12 +28,7 @@ class QuestionListFragment : ListFragment() {
         }
     }
 
-    override fun getViewType() = ViewTypes.QUESTION
 
-    override fun handleClick(data: Data) {
-        val bundle = bundleOf(KEY_QUESTION_ID to data)
-        findNavController().navigate(R.id.action_questionListFragment_to_detailFragment, bundle)
-    }
 
     companion object {
         private const val TAG = Common.TAG + "TopicFragment"

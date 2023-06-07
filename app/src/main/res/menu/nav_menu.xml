@@ -2,22 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:title="Home" />
-        <item
-            android:id="@+id/nav_profile"
-            android:title="Profile" />
-        <item
             android:id="@+id/nav_add_topic"
-            android:title="Add Topic" />
+            android:title="@string/add_topic_menu" />
         <item
             android:id="@+id/nav_ask_question"
-            android:title="Ask Question" />
-        <item
-            android:id="@+id/nav_review_questions"
-            android:title="Review Questions" />
-        <item
-            android:id="@+id/nav_settings"
-            android:title="Settings" />
+            android:title="@string/ask_question_menu" />
     </group>
 </menu>

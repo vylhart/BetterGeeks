@@ -12,11 +12,7 @@ abstract class ListFragment : Fragment() {
     protected lateinit var binding: FragmentListBinding
     protected lateinit var adapter: Adapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentListBinding.inflate(inflater, container, false)
         setupRecyclerView()
         init()
@@ -24,13 +20,11 @@ abstract class ListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = Adapter(getViewType()) { handleClick(it) }
+        adapter = Adapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
     }
 
     abstract fun init()
-    abstract fun getViewType(): ViewTypes
-    abstract fun handleClick(data: Data)
 
 }

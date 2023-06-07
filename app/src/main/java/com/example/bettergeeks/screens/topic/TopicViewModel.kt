@@ -21,7 +21,7 @@ class TopicViewModel @Inject constructor(private val repo: TopicRepository): Vie
 
     init {
         requestData()
-        insertData()
+        //insertData()
     }
 
     private fun requestData() {
@@ -47,7 +47,6 @@ class TopicViewModel @Inject constructor(private val repo: TopicRepository): Vie
                 topicName = "Movies",
                 likes = 2
             ),
-            // Add more TopicData objects as needed
         )
 
         viewModelScope.launch {
@@ -55,10 +54,5 @@ class TopicViewModel @Inject constructor(private val repo: TopicRepository): Vie
             repo.insertTopic(topicDataList[1])
             repo.insertTopic(topicDataList[2])
         }
-    }
-
-    override fun onCleared() {
-        Log.i(TAG, "onCleared: ")
-        super.onCleared()
     }
 }

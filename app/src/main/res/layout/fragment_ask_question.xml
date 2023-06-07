@@ -36,11 +36,10 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/generate_answer" />
 
-            <LinearLayout
+            <com.example.bettergeeks.screens.recycler.ResponseView
                 android:id="@+id/responseLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>

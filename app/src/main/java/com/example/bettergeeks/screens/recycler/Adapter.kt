@@ -12,20 +12,17 @@ import com.example.bettergeeks.databinding.CardTopicBinding
 import com.example.bettergeeks.screens.questions.QuestionCardViewHolder
 import com.example.bettergeeks.screens.topic.TopicCardViewHolder
 
-class Adapter(val types: ViewTypes, private val callback: (Data) -> Unit) :
-    ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
+class Adapter : ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ViewTypes.TOPIC.ordinal -> {
-                val binding =
-                    CardTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding = CardTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 TopicCardViewHolder(binding)
             }
 
             else -> {
-                val binding =
-                    CardQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding = CardQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 QuestionCardViewHolder(binding)
             }
         }
@@ -33,13 +30,16 @@ class Adapter(val types: ViewTypes, private val callback: (Data) -> Unit) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is TopicCardViewHolder -> holder.bind(getItem(position) as TopicData, position, callback)
-            is QuestionCardViewHolder -> holder.bind(getItem(position) as QuestionData, callback)
+            is TopicCardViewHolder -> holder.bind(getItem(position) as TopicData, position)
+            is QuestionCardViewHolder -> holder.bind(getItem(position) as QuestionData)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return types.ordinal
+        return when(getItem(position)) {
+            is TopicData -> ViewTypes.TOPIC.ordinal
+            else -> ViewTypes.QUESTION.ordinal
+        }
     }
 }
 
@@ -60,7 +60,7 @@ private val callbackHandler = object : DiffUtil.ItemCallback<Data>() {
     }
 }
 
-enum class ViewTypes(value: Int) {
-    TOPIC(0),
-    QUESTION(1)
+enum class ViewTypes {
+    TOPIC,
+    QUESTION
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bettergeeks.data.dao.remote.AuthInterceptor
 import com.example.bettergeeks.data.dao.remote.OpenAiService
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.data.model.local.TopicData
@@ -17,6 +18,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 
@@ -24,8 +29,9 @@ import javax.inject.Inject
 class AskQuestionViewModel @Inject constructor(
     private val topicRepository: TopicRepository,
     private val questionRepository: QuestionRepository,
-    private val openAiService: OpenAiService
+
     ): ViewModel() {
+    private val openAiService: OpenAiService = providesOpenAiService()
 
     var selectedTopic: TopicData? = null
     private val _list = MutableLiveData(listOf<TopicData>())
@@ -58,9 +64,28 @@ class AskQuestionViewModel @Inject constructor(
             questionRepository.insertQuestion(QuestionData(question, answer, topicData.id))
         }
     }
+    private fun providesOpenAiService(): OpenAiService {
+        val loggingInterceptor =
+            HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
+        val client: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(Common.API_KEY))
+            .addInterceptor(loggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.openai.com/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        return retrofit.create(OpenAiService::class.java)
+    }
     fun generateAnswer(question: String) {
+        Log.i(TAG, "generateAnswer: $question")
         if (question.isBlank() || isProcessing || selectedTopic == null) return
+
+
         viewModelScope.launch {
             isProcessing = true
             val request = Common.getChatGptRequest(question)
@@ -81,6 +106,7 @@ class AskQuestionViewModel @Inject constructor(
             } else {
                 _error.value = "API request failed: ${response.code()}"
             }
+            Log.i(TAG, "generateAnswer: $response")
             isProcessing = false
         }
     }

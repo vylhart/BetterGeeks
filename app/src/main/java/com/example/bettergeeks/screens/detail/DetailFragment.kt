@@ -5,13 +5,19 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import com.example.bettergeeks.MainActivity
+import com.example.bettergeeks.R
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.databinding.FragmentDetailBinding
+import com.example.bettergeeks.screens.ask_question.CodeTextView
 import com.example.bettergeeks.utils.Common.Companion.KEY_QUESTION_ID
 import com.example.bettergeeks.utils.Common.Companion.TAG
 
@@ -29,14 +35,7 @@ class DetailFragment : Fragment() {
         arguments?.getParcelable(KEY_QUESTION_ID, QuestionData::class.java)?.let {
             Log.i(TAG, "setUpView: $it")
             binding.questionText.text = it.question
-            binding.answerText.text = it.answer
+            it.answer?.let { it1 -> binding.responseLayout.setText(it1) }
         }
     }
-
-    override fun onDestroyView() {
-        (activity as? MainActivity)?.removeActionBar()
-        super.onDestroyView()
-    }
-
-
 }

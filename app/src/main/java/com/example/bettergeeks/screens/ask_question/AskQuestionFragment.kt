@@ -20,11 +20,7 @@ class AskQuestionFragment : Fragment() {
     private lateinit var binding: FragmentAskQuestionBinding
     private val viewModel: AskQuestionViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentAskQuestionBinding.inflate(inflater, container, false)
         setBindings()
         return binding.root

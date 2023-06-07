@@ -30,4 +30,6 @@ In summary, Hilt is a powerful dependency injection library for Android developm
     <string name="generate_answer">Generate Answer</string>
     <string name="add_topic">Add topic</string>
     <string name="enter_topic_name">Enter topic name</string>
+    <string name="add_topic_menu">Add Topic</string>
+    <string name="ask_question_menu">Ask Question</string>
 </resources>
