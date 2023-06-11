@@ -11,7 +11,7 @@
             android:layout_height="200dp"
             android:layout_margin="5dp"
             android:shadowColor="@color/black"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/background_dark"
             app:cardCornerRadius="10dp"
             app:cardElevation="9dp">
 
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:padding="20dp"
                     android:text="Android"
-                    android:textColor="#102B37"
+                    android:textColor="@color/white"
                     android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>

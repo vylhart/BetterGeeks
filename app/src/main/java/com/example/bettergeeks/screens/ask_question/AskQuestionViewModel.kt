@@ -5,23 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bettergeeks.data.dao.remote.AuthInterceptor
-import com.example.bettergeeks.data.dao.remote.OpenAiService
+import com.example.bettergeeks.data.dao.remote.OpenAiRepository
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.data.repository.QuestionRepository
 import com.example.bettergeeks.data.repository.TopicRepository
-import com.example.bettergeeks.utils.Common
 import com.example.bettergeeks.utils.Common.Companion.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 
@@ -29,19 +21,21 @@ import javax.inject.Inject
 class AskQuestionViewModel @Inject constructor(
     private val topicRepository: TopicRepository,
     private val questionRepository: QuestionRepository,
-
+    private val openAiRepository: OpenAiRepository
     ): ViewModel() {
-    private val openAiService: OpenAiService = providesOpenAiService()
+
 
     var selectedTopic: TopicData? = null
+    var question: String = ""
+
     private val _list = MutableLiveData(listOf<TopicData>())
     val list: LiveData<List<TopicData>> = _list
 
-    private val _response = MutableLiveData("")
-    val response: LiveData<String> = _response
+    private val _textResponse = MutableLiveData<ResponseData<String>>()
+    val textResponse: LiveData<ResponseData<String>> = _textResponse
 
-    private val _error = MutableLiveData("")
-    val error: LiveData<String> = _error
+    private val _imageResponse = MutableLiveData<ResponseData<String>>()
+    val imageResponse: LiveData<ResponseData<String>> = _imageResponse
 
     private var isProcessing = false
 
@@ -59,55 +53,36 @@ class AskQuestionViewModel @Inject constructor(
         }
     }
 
-    private fun insertData(question: String, answer: String, topicData: TopicData) {
-        viewModelScope.launch {
-            questionRepository.insertQuestion(QuestionData(question, answer, topicData.id))
-        }
-    }
-    private fun providesOpenAiService(): OpenAiService {
-        val loggingInterceptor =
-            HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-
-        val client: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(Common.API_KEY))
-            .addInterceptor(loggingInterceptor)
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.openai.com/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        return retrofit.create(OpenAiService::class.java)
-    }
     fun generateAnswer(question: String) {
         Log.i(TAG, "generateAnswer: $question")
         if (question.isBlank() || isProcessing || selectedTopic == null) return
 
-
         viewModelScope.launch {
             isProcessing = true
-            val request = Common.getChatGptRequest(question)
-
-            val response = withContext(Dispatchers.IO) {
-                openAiService.generateCompletion(request)
+            val answer =  openAiRepository.generateAnswer(question)
+            _textResponse.value = answer
+            if (answer is ResponseData.Success) {
+                generateImageFromText(question, answer.data)
             }
-            if (response.isSuccessful) {
-                val chatGptResponse = response.body()
-                if (chatGptResponse != null && chatGptResponse.choices.isNotEmpty()) {
-                    val choice = chatGptResponse.choices[0]
-                    val answer = choice.message.content
-                    insertData(question, answer, selectedTopic!!)
-                    _response.value = answer
-                } else {
-                    _error.value = "Empty response or missing choice."
-                }
-            } else {
-                _error.value = "API request failed: ${response.code()}"
-            }
-            Log.i(TAG, "generateAnswer: $response")
-            isProcessing = false
         }
     }
+
+    private fun generateImageFromText(question: String, text: String) {
+        if (text.isBlank() || selectedTopic == null) return
+        Log.i(TAG, "generateImageFromText: $text")
+
+        viewModelScope.launch {
+            val response = openAiRepository.generateImageFromText(text)
+            _imageResponse.value = response
+            isProcessing = false
+            if (response is ResponseData.Success) {
+                questionRepository.insertQuestion(QuestionData(question, text, selectedTopic!!.id, response.data))
+            }
+        }
+    }
+}
+
+sealed class ResponseData<out T> {
+    data class Success<out T>(val data: T) : ResponseData<T>()
+    data class Error(val message: String) : ResponseData<Nothing>()
 }

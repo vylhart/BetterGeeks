@@ -2,7 +2,6 @@ package com.example.bettergeeks.screens.topic
 
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bettergeeks.R
 import com.example.bettergeeks.data.model.local.TopicData

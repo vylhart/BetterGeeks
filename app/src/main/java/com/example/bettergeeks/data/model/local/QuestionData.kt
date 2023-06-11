@@ -13,6 +13,7 @@ data class QuestionData(
     val question: String?,
     val answer: String?,
     val topicId: Long = 0,
+    val imageUrl: String?,
     val likes: Int = 0,
     val dislikes: Int = 0,
     @PrimaryKey(autoGenerate = true)
@@ -23,6 +24,7 @@ data class QuestionData(
         parcel.readString(),
         parcel.readString(),
         parcel.readLong(),
+        parcel.readString(),
         parcel.readInt(),
         parcel.readInt(),
         parcel.readLong()
@@ -37,6 +39,7 @@ data class QuestionData(
         parcel.writeString(question)
         parcel.writeString(answer)
         parcel.writeLong(topicId)
+        parcel.writeString(imageUrl)
         parcel.writeInt(likes)
         parcel.writeInt(dislikes)
         parcel.writeLong(id)

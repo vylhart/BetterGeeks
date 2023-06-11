@@ -36,6 +36,11 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/generate_answer" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <com.example.bettergeeks.screens.recycler.ResponseView
                 android:id="@+id/responseLayout"
                 android:layout_width="match_parent"

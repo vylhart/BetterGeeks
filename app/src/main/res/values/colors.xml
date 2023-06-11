@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_light">#F5FAFB</color>
+    <color name="white_dirty">#FAFBFA</color>
 
 
     <color name="blue">#2BB3F1</color>
@@ -24,7 +25,9 @@
     <color name="yellow_light">#F6F1C7</color>
     <color name="purple_light">#CEBCEF</color>
     <color name="pink_light">#F6CCDB</color>
-    <color name="gray">#494848</color>
+    <color name="gray">#343435</color>
 
+    <color name="action_bar_color">#060C16</color>
+    <color name="background_dark">#080f1a</color>
     <color name="status_bar_color">#408AAC</color>
 </resources>

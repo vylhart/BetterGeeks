@@ -6,64 +6,63 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.databinding.FragmentAskQuestionBinding
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class AskQuestionFragment : Fragment() {
+
     private lateinit var binding: FragmentAskQuestionBinding
     private val viewModel: AskQuestionViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAskQuestionBinding.inflate(inflater, container, false)
-        setBindings()
+        setObservers()
         return binding.root
     }
 
-    private fun setBindings() {
+    private fun setObservers() {
         binding.buttonGenerateAnswer.setOnClickListener {
             val question = binding.editTextQuestion.text.toString()
             viewModel.generateAnswer(question)
         }
+
         viewModel.list.observe(viewLifecycleOwner) {
             binding.spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item , it)
             binding.spinner.onItemSelectedListener = getSpinnerListener()
         }
-        viewModel.response.observe(viewLifecycleOwner) {
-            binding.buttonGenerateAnswer.visibility = View.VISIBLE
-            createResponseView(it)
+
+        viewModel.textResponse.observe(viewLifecycleOwner) {
+            when(it) {
+                is ResponseData.Success -> {
+                    binding.responseLayout.setText(it.data)
+                }
+                is ResponseData.Error -> {
+                    showToast(it.message)
+                }
+            }
         }
-        viewModel.error.observe(viewLifecycleOwner) {
-            binding.buttonGenerateAnswer.visibility = View.VISIBLE
-            showToast(it)
+
+        viewModel.imageResponse.observe(viewLifecycleOwner) {
+            when(it) {
+                is ResponseData.Success -> {
+                    Picasso.get().load(it.data).into(binding.imageView)
+                }
+                is ResponseData.Error -> {
+                    showToast(it.message)
+                }
+            }
         }
     }
-
 
     private fun showToast(message: String) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun createResponseView(text: String) {
-        binding.responseLayout.removeAllViews()
-        val pieces = text.split("\n\n")
-        for ((i, piece) in pieces.withIndex()) {
-            if (i % 2 == 1) {
-                val codeView = CodeTextView(requireContext())
-                codeView.setText(piece)
-                binding.responseLayout.addView(codeView)
-            } else {
-                val textView = TextView(requireContext())
-                textView.text = piece
-                binding.responseLayout.addView(textView)
-            }
-        }
     }
 
     private fun getSpinnerListener(): AdapterView.OnItemSelectedListener {
@@ -79,5 +78,3 @@ class AskQuestionFragment : Fragment() {
         }
     }
 }
-
-
