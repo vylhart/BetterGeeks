@@ -14,45 +14,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TopicViewModel @Inject constructor(private val repo: TopicRepository): ViewModel() {
+class TopicViewModel @Inject constructor(private val repository: TopicRepository) : ViewModel() {
 
     private val _list = MutableLiveData(listOf<TopicData>())
-    val list : LiveData<List<TopicData>> = _list
+    val list: LiveData<List<TopicData>> = _list
 
     init {
         requestData()
-        //insertData()
     }
 
     private fun requestData() {
         viewModelScope.launch {
-            repo.getAllTopics().collectLatest {
+            repository.getAllTopics().collectLatest {
                 Log.i(TAG, "requestData: $it")
                 _list.value = it
             }
-        }
-    }
-
-    private fun insertData() {
-        val topicDataList = listOf(
-            TopicData(
-                topicName = "Technology",
-                likes = 10
-            ),
-            TopicData(
-                topicName = "Sports",
-                likes = 5
-            ),
-            TopicData(
-                topicName = "Movies",
-                likes = 2
-            ),
-        )
-
-        viewModelScope.launch {
-            repo.insertTopic(topicDataList[0])
-            repo.insertTopic(topicDataList[1])
-            repo.insertTopic(topicDataList[2])
         }
     }
 }

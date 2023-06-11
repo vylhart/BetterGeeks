@@ -4,7 +4,6 @@ import com.example.bettergeeks.data.model.remote.ChatGptRequest
 import com.example.bettergeeks.data.model.remote.ChatGptResponse
 import com.example.bettergeeks.data.model.remote.ImageGenerationRequest
 import com.example.bettergeeks.data.model.remote.ImageGenerationResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Headers

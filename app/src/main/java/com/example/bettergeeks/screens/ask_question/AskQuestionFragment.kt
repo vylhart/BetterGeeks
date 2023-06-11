@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.bettergeeks.R
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.databinding.FragmentAskQuestionBinding
 import com.squareup.picasso.Picasso
@@ -21,7 +22,11 @@ class AskQuestionFragment : Fragment() {
     private lateinit var binding: FragmentAskQuestionBinding
     private val viewModel: AskQuestionViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAskQuestionBinding.inflate(inflater, container, false)
         setObservers()
         return binding.root
@@ -34,15 +39,19 @@ class AskQuestionFragment : Fragment() {
         }
 
         viewModel.list.observe(viewLifecycleOwner) {
-            binding.spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item , it)
-            binding.spinner.onItemSelectedListener = getSpinnerListener()
+            binding.spinner.adapter = ArrayAdapter(
+                requireContext(),
+                R.layout.spinner_item,
+                it.map { topicData -> topicData.topicName })
+            binding.spinner.onItemSelectedListener = getSpinnerListener(it)
         }
 
         viewModel.textResponse.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is ResponseData.Success -> {
                     binding.responseLayout.setText(it.data)
                 }
+
                 is ResponseData.Error -> {
                     showToast(it.message)
                 }
@@ -50,10 +59,11 @@ class AskQuestionFragment : Fragment() {
         }
 
         viewModel.imageResponse.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is ResponseData.Success -> {
                     Picasso.get().load(it.data).into(binding.imageView)
                 }
+
                 is ResponseData.Error -> {
                     showToast(it.message)
                 }
@@ -65,11 +75,16 @@ class AskQuestionFragment : Fragment() {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun getSpinnerListener(): AdapterView.OnItemSelectedListener {
+    private fun getSpinnerListener(topicData: List<TopicData>): AdapterView.OnItemSelectedListener {
         return object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val topicData = parent?.getItemAtPosition(position) as TopicData
-                viewModel.selectedTopic = topicData
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedTopic = parent?.getItemAtPosition(position) as String
+                viewModel.selectedTopic = topicData.find { it.topicName == selectedTopic }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

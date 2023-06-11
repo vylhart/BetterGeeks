@@ -14,7 +14,7 @@ class QuestionRepository @Inject constructor(private val questionDao: QuestionDa
 
     fun getQuestionById(id: Int) = questionDao.getQuestionById(id)
 
-    suspend fun insertQuestion(questionData: QuestionData) = withContext(Dispatchers.IO){
+    suspend fun insertQuestion(questionData: QuestionData) = withContext(Dispatchers.IO) {
         questionDao.insertQuestion(questionData)
     }
 

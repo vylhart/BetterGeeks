@@ -17,12 +17,14 @@ class Adapter : ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ViewTypes.TOPIC.ordinal -> {
-                val binding = CardTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    CardTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 TopicCardViewHolder(binding)
             }
 
             else -> {
-                val binding = CardQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    CardQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 QuestionCardViewHolder(binding)
             }
         }
@@ -36,7 +38,7 @@ class Adapter : ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)) {
+        return when (getItem(position)) {
             is TopicData -> ViewTypes.TOPIC.ordinal
             else -> ViewTypes.QUESTION.ordinal
         }
@@ -47,7 +49,6 @@ interface Data {
     val id: Long
     fun getViewType(): Int
 }
-
 
 
 private val callbackHandler = object : DiffUtil.ItemCallback<Data>() {

@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.BetterGeeks" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.BetterGeeks" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#B0DAED</item>
         <item name="colorPrimaryVariant">#FF5722</item>
@@ -12,7 +12,10 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/action_bar_color</item>
-        <item name="android:textColorPrimary">#FF5722</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <!-- Customize your theme here. -->
+        <item name="android:popupMenuStyle">@style/popupMenuStyle</item>
+        <!-- Default background       -->
+        <item name="android:windowBackground">@drawable/background</item>
     </style>
 </resources>

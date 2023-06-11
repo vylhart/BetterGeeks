@@ -28,8 +28,7 @@ data class QuestionData(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readLong()
-    ) {
-    }
+    )
 
     override fun getViewType(): Int {
         return ViewTypes.QUESTION.ordinal

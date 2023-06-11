@@ -3,20 +3,14 @@ package com.example.bettergeeks.screens.questions
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.example.bettergeeks.R
-import com.example.bettergeeks.screens.recycler.Data
 import com.example.bettergeeks.screens.recycler.ListFragment
 import com.example.bettergeeks.utils.Common
-import com.example.bettergeeks.utils.Common.Companion.KEY_QUESTION_ID
 import com.example.bettergeeks.utils.Common.Companion.KEY_TOPIC_ID
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
-import com.yuyakaido.android.cardstackview.CardStackView
 import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.SwipeableMethod
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +22,11 @@ class QuestionListFragment : ListFragment(), CardStackListener {
 
     override fun init() {
         Log.i(TAG, "init: ")
-       arguments?.getLong(KEY_TOPIC_ID)?.let {
-           Log.i(TAG, "init: $it")
-           viewModel.getData(it)
-       }
+        arguments?.getLong(KEY_TOPIC_ID)?.let {
+            Log.i(TAG, "init: $it")
+            viewModel.getData(it)
+        }
+
         viewModel.list.observe(requireActivity()) {
             adapter.submitList(it)
         }

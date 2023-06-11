@@ -29,5 +29,7 @@
 
     <color name="action_bar_color">#060C16</color>
     <color name="background_dark">#080f1a</color>
+    <color name="background_dark_light">#121E2E</color>
+
     <color name="status_bar_color">#408AAC</color>
 </resources>

@@ -10,10 +10,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestionViewModel @Inject constructor(private val repository: QuestionRepository) : ViewModel() {
+class QuestionViewModel @Inject constructor(private val repository: QuestionRepository) :
+    ViewModel() {
 
     private val _list = MutableLiveData(listOf<QuestionData>())
-    val list : MutableLiveData<List<QuestionData>> = _list
+    val list: MutableLiveData<List<QuestionData>> = _list
 
     fun getData(topicId: Long) {
         viewModelScope.launch {

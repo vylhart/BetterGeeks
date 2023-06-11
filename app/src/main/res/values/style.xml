@@ -10,4 +10,8 @@
     <style name="AppTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.StatusBar.Title">
         <item name="android:textColor">#3F51B5</item>
     </style>
+
+    <style name="popupMenuStyle" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/background_dark_light</item>
+    </style>
 </resources>

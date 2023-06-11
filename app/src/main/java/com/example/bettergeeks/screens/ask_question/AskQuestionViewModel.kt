@@ -22,7 +22,7 @@ class AskQuestionViewModel @Inject constructor(
     private val topicRepository: TopicRepository,
     private val questionRepository: QuestionRepository,
     private val openAiRepository: OpenAiRepository
-    ): ViewModel() {
+) : ViewModel() {
 
 
     var selectedTopic: TopicData? = null
@@ -59,7 +59,7 @@ class AskQuestionViewModel @Inject constructor(
 
         viewModelScope.launch {
             isProcessing = true
-            val answer =  openAiRepository.generateAnswer(question)
+            val answer = openAiRepository.generateAnswer(question)
             _textResponse.value = answer
             if (answer is ResponseData.Success) {
                 generateImageFromText(question, answer.data)
@@ -76,7 +76,14 @@ class AskQuestionViewModel @Inject constructor(
             _imageResponse.value = response
             isProcessing = false
             if (response is ResponseData.Success) {
-                questionRepository.insertQuestion(QuestionData(question, text, selectedTopic!!.id, response.data))
+                questionRepository.insertQuestion(
+                    QuestionData(
+                        question,
+                        text,
+                        selectedTopic!!.id,
+                        response.data
+                    )
+                )
             }
         }
     }

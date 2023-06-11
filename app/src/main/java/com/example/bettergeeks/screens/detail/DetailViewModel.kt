@@ -1,4 +1,3 @@
 package com.example.bettergeeks.screens.detail
 
-class DetailViewModel {
-}
+class DetailViewModel
