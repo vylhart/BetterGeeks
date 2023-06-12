@@ -11,8 +11,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.databinding.FragmentDetailBinding
-import com.example.bettergeeks.utils.Common.Companion.KEY_QUESTION_ID
-import com.example.bettergeeks.utils.Common.Companion.TAG
+import com.example.bettergeeks.utils.Common.KEY_QUESTION_ID
+import com.example.bettergeeks.utils.Common.TAG
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class DetailFragment : Fragment() {

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.data.repository.TopicRepository
-import com.example.bettergeeks.utils.Common.Companion.TAG
+import com.example.bettergeeks.utils.Common.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

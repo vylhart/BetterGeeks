@@ -9,7 +9,7 @@ import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.databinding.CardQuestionBinding
 import com.example.bettergeeks.screens.recycler.Data
 import com.example.bettergeeks.utils.Common
-import com.example.bettergeeks.utils.Common.Companion.TAG
+import com.example.bettergeeks.utils.Common.TAG
 import com.squareup.picasso.Picasso
 
 class QuestionCardViewHolder(private val binding: CardQuestionBinding) :

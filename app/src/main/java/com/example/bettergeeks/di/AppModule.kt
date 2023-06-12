@@ -7,6 +7,7 @@ import com.example.bettergeeks.data.dao.local.TopicDao
 import com.example.bettergeeks.data.dao.remote.AuthInterceptor
 import com.example.bettergeeks.data.dao.remote.OpenAiService
 import com.example.bettergeeks.data.database.LocalDatabase
+import com.example.bettergeeks.utils.ApiKey
 import com.example.bettergeeks.utils.Common
 import dagger.Module
 import dagger.Provides
@@ -52,7 +53,7 @@ class AppModule {
             HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
         val client: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(Common.API_KEY))
+            .addInterceptor(AuthInterceptor(ApiKey.API_KEY))
             .addInterceptor(loggingInterceptor)
             .build()
 

@@ -8,7 +8,7 @@ import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.databinding.CardTopicBinding
 import com.example.bettergeeks.screens.recycler.Data
 import com.example.bettergeeks.utils.Common
-import com.example.bettergeeks.utils.Common.Companion.getColor
+import com.example.bettergeeks.utils.Common.getColor
 
 class TopicCardViewHolder(private val binding: CardTopicBinding) :
     RecyclerView.ViewHolder(binding.root) {

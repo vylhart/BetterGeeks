@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.bettergeeks.screens.recycler.ListFragment
 import com.example.bettergeeks.utils.Common
-import com.example.bettergeeks.utils.Common.Companion.KEY_TOPIC_ID
+import com.example.bettergeeks.utils.Common.KEY_TOPIC_ID
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
