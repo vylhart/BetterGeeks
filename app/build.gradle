@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -38,7 +39,8 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.5.3"
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
+    def nav_version = "2.6.0"
 
     implementation 'org.jsoup:jsoup:1.16.1'
     // room dependencies

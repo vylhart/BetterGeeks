@@ -14,7 +14,7 @@ interface QuestionDao {
     fun getAllQuestions(): Flow<List<QuestionData>>
 
     @Query("SELECT * FROM question_table WHERE topicId = :topicId")
-    fun getQuestionsByTopicId(topicId: Long): Flow<List<QuestionData>>
+    fun getQuestionsByTopicId(topicId: String): Flow<List<QuestionData>>
 
     @Query("SELECT * FROM question_table WHERE id = :id")
     fun getQuestionById(id: Int): Flow<QuestionData>

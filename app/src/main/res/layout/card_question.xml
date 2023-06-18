@@ -15,12 +15,16 @@
             android:background="@color/background_dark_light"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_view"
+            <TextView
+                android:id="@+id/image_view_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="150dp"
-                android:scaleType="fitXY"
+                android:padding="15dp"
+                android:src="@color/cardview_dark_background"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,12 +35,12 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:src="@color/cardview_dark_background"
-                android:text="What is dependecy ?"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_view" />
+                app:layout_constraintTop_toBottomOf="@id/image_view_text" />
 
 
             <ImageView
@@ -53,10 +57,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="6dp"
-                android:text="123"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/image_view"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_text"
                 app:layout_constraintStart_toStartOf="@id/like_iv" />
 
             <ImageView
@@ -66,7 +69,7 @@
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_thumb_down"
                 app:layout_constraintBottom_toTopOf="@id/dislike_tv"
-                app:layout_constraintEnd_toEndOf="@id/image_view" />
+                app:layout_constraintEnd_toEndOf="@id/image_view_text" />
 
             <TextView
                 android:id="@+id/dislike_tv"
@@ -74,9 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="6dp"
-                android:text="23"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/image_view"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_text"
                 app:layout_constraintStart_toStartOf="@id/dislike_iv" />
 
             <TextView

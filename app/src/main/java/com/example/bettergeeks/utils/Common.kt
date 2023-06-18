@@ -20,6 +20,10 @@ object Common {
         return colorList[position % colorList.size]
     }
 
+    fun randomColor(): Int {
+        return colorList.random()
+    }
+
 
     fun parseQuestionList(text: String): MutableList<String> {
         val regex = Regex("\\d+\\.\\s.*")

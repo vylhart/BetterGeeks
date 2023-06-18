@@ -10,7 +10,7 @@ class QuestionRepository @Inject constructor(private val questionDao: QuestionDa
 
     fun getAllQuestions() = questionDao.getAllQuestions()
 
-    fun getQuestionsByTopicId(topicId: Long) = questionDao.getQuestionsByTopicId(topicId)
+    fun getQuestionsByTopicId(topicId: String) = questionDao.getQuestionsByTopicId(topicId)
 
     fun getQuestionById(id: Int) = questionDao.getQuestionById(id)
 

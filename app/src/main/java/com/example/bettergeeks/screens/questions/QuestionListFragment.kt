@@ -22,7 +22,7 @@ class QuestionListFragment : ListFragment(), CardStackListener {
 
     override fun init() {
         Log.i(TAG, "init: ")
-        arguments?.getLong(KEY_TOPIC_ID)?.let {
+        arguments?.getString(KEY_TOPIC_ID)?.let {
             Log.i(TAG, "init: $it")
             viewModel.getData(it)
         }
@@ -53,11 +53,6 @@ class QuestionListFragment : ListFragment(), CardStackListener {
     }
 
     override fun onCardSwiped(direction: Direction?) {
-        if (direction == Direction.Right) {
-
-        } else if (direction == Direction.Left) {
-
-        }
     }
 
     override fun onCardRewound() {

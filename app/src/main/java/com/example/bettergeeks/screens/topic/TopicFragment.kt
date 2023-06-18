@@ -22,14 +22,14 @@ class TopicFragment : ListFragment() {
 
     override fun init() {
         Log.i(TAG, "init: ")
-        (requireActivity() as MenuHost).addMenuProvider(
-            menuProvider,
-            viewLifecycleOwner,
-            Lifecycle.State.RESUMED
-        )
+        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 2)
         viewModel.list.observe(requireActivity()) {
             adapter.submitList(it)
+            for (item in it) {
+                Log.i(TAG, "init: $item")
+            }
         }
     }
 

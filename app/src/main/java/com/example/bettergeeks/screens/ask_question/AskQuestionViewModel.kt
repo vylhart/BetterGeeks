@@ -5,28 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.bettergeeks.data.dao.remote.FirebaseRepository
 import com.example.bettergeeks.data.dao.remote.OpenAiRepository
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.data.model.local.TopicData
-import com.example.bettergeeks.data.repository.QuestionRepository
 import com.example.bettergeeks.data.repository.TopicRepository
 import com.example.bettergeeks.utils.Common.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 
 @HiltViewModel
 class AskQuestionViewModel @Inject constructor(
     private val topicRepository: TopicRepository,
-    private val questionRepository: QuestionRepository,
+    private val firebaseRepository: FirebaseRepository,
     private val openAiRepository: OpenAiRepository
 ) : ViewModel() {
 
 
     var selectedTopic: TopicData? = null
-    var question: String = ""
 
     private val _list = MutableLiveData(listOf<TopicData>())
     val list: LiveData<List<TopicData>> = _list
@@ -44,10 +44,8 @@ class AskQuestionViewModel @Inject constructor(
     }
 
     private fun requestData() {
-        Log.i(TAG, "requestData: ")
         viewModelScope.launch {
             topicRepository.getAllTopics().collectLatest {
-                Log.i(TAG, "requestData: $it")
                 _list.value = it
             }
         }
@@ -56,13 +54,15 @@ class AskQuestionViewModel @Inject constructor(
     fun generateAnswer(question: String) {
         Log.i(TAG, "generateAnswer: $question")
         if (question.isBlank() || isProcessing || selectedTopic == null) return
+        val formattedQuestion = question.trim().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+        val additionalQuestion = ", Answer this question in context of ${selectedTopic?.topicName}"
 
         viewModelScope.launch {
             isProcessing = true
-            val answer = openAiRepository.generateAnswer(question)
+            val answer = openAiRepository.generateAnswer(formattedQuestion + additionalQuestion)
             _textResponse.value = answer
             if (answer is ResponseData.Success) {
-                generateImageFromText(question, answer.data)
+                generateImageFromText(formattedQuestion, answer.data)
             }
         }
     }
@@ -76,14 +76,7 @@ class AskQuestionViewModel @Inject constructor(
             _imageResponse.value = response
             isProcessing = false
             if (response is ResponseData.Success) {
-                questionRepository.insertQuestion(
-                    QuestionData(
-                        question,
-                        text,
-                        selectedTopic!!.id,
-                        response.data
-                    )
-                )
+                firebaseRepository.insertQuestion(QuestionData(question, text, selectedTopic!!.id, response.data))
             }
         }
     }

@@ -2,6 +2,7 @@ package com.example.bettergeeks.screens.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,20 +13,18 @@ import com.example.bettergeeks.databinding.CardTopicBinding
 import com.example.bettergeeks.screens.questions.QuestionCardViewHolder
 import com.example.bettergeeks.screens.topic.TopicCardViewHolder
 
-class Adapter : ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
+class Adapter(val activity: FragmentActivity?) : ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ViewTypes.TOPIC.ordinal -> {
-                val binding =
-                    CardTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding = CardTopicBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 TopicCardViewHolder(binding)
             }
 
             else -> {
-                val binding =
-                    CardQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                QuestionCardViewHolder(binding)
+                val binding = CardQuestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                QuestionCardViewHolder(binding, activity)
             }
         }
     }
@@ -46,7 +45,7 @@ class Adapter : ListAdapter<Data, RecyclerView.ViewHolder>(callbackHandler) {
 }
 
 interface Data {
-    val id: Long
+    val id: String
     fun getViewType(): Int
 }
 

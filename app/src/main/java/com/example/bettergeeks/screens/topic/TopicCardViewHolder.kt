@@ -1,5 +1,6 @@
 package com.example.bettergeeks.screens.topic
 
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.databinding.CardTopicBinding
 import com.example.bettergeeks.screens.recycler.Data
 import com.example.bettergeeks.utils.Common
+import com.example.bettergeeks.utils.Common.TAG
 import com.example.bettergeeks.utils.Common.getColor
 
 class TopicCardViewHolder(private val binding: CardTopicBinding) :
@@ -21,6 +23,7 @@ class TopicCardViewHolder(private val binding: CardTopicBinding) :
 
     private fun handleClick(data: Data) {
         val bundle = bundleOf(Common.KEY_TOPIC_ID to data.id)
+        Log.i(TAG, "handleClick: data.id ${data.id}")
         binding.root.findNavController()
             .navigate(R.id.action_topicFragment_to_questionListFragment, bundle)
     }

@@ -20,7 +20,7 @@ abstract class ListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = Adapter()
+        adapter = Adapter(activity)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
     }
