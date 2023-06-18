@@ -16,16 +16,17 @@ class TopicCardViewHolder(private val binding: CardTopicBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: TopicData, position: Int) {
-        binding.root.setOnClickListener { handleClick(data) }
-        binding.textView.text = data.topicName
-        binding.imageView.setBackgroundResource(getColor(position))
+        binding.apply {
+            root.setOnClickListener { handleClick(data) }
+            textView.text = data.topicName
+            imageView.setBackgroundResource(getColor(position))
+        }
     }
 
     private fun handleClick(data: Data) {
         val bundle = bundleOf(Common.KEY_TOPIC_ID to data.id)
         Log.i(TAG, "handleClick: data.id ${data.id}")
-        binding.root.findNavController()
-            .navigate(R.id.action_topicFragment_to_questionListFragment, bundle)
+        binding.root.findNavController().navigate(R.id.action_topicFragment_to_questionListFragment, bundle)
     }
 }
 

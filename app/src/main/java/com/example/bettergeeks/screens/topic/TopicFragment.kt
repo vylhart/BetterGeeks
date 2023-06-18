@@ -27,9 +27,7 @@ class TopicFragment : ListFragment() {
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 2)
         viewModel.list.observe(requireActivity()) {
             adapter.submitList(it)
-            for (item in it) {
-                Log.i(TAG, "init: $item")
-            }
+            binding.recyclerView.scrollToPosition(0)
         }
     }
 
@@ -59,6 +57,4 @@ class TopicFragment : ListFragment() {
     companion object {
         private const val TAG = Common.TAG + "TopicFragment"
     }
-
-
 }

@@ -3,7 +3,7 @@ package com.example.bettergeeks.screens.add_topic
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bettergeeks.data.dao.remote.FirebaseRepository
+import com.example.bettergeeks.data.repository.FirebaseRepository
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.utils.Common.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel

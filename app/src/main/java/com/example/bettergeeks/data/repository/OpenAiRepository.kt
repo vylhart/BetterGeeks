@@ -1,6 +1,7 @@
-package com.example.bettergeeks.data.dao.remote
+package com.example.bettergeeks.data.repository
 
 import android.util.Log
+import com.example.bettergeeks.data.dao.remote.OpenAiService
 import com.example.bettergeeks.data.model.remote.ChatGptRequest
 import com.example.bettergeeks.data.model.remote.ImageGenerationRequest
 import com.example.bettergeeks.data.model.remote.Message
@@ -19,20 +20,22 @@ class OpenAiRepository @Inject constructor(private val openAiService: OpenAiServ
 
     suspend fun generateAnswer(question: String): ResponseData<String> =
         withContext(Dispatchers.IO) {
-            val request = getChatGptRequest(question)
-            val response = openAiService.generateCompletion(request)
-
-            Log.i(Common.TAG, "generateAnswer: $response")
-
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    if (it.choices.isNotEmpty()) {
-                        return@withContext ResponseData.Success(it.choices[0].message.content)
+            try {
+                val request = getChatGptRequest(question)
+                val response = openAiService.generateCompletion(request)
+                Log.i(Common.TAG, "generateAnswer: $response")
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        if (it.choices.isNotEmpty()) {
+                            return@withContext ResponseData.Success(it.choices[0].message.content)
+                        }
                     }
+                    return@withContext ResponseData.Error("Empty response or missing choice.")
+                } else {
+                    return@withContext ResponseData.Error("API request failed: ${response.code()}")
                 }
-                return@withContext ResponseData.Error("Empty response or missing choice.")
-            } else {
-                return@withContext ResponseData.Error("API request failed: ${response.code()}")
+            } catch (e: Exception) {
+                return@withContext ResponseData.Error("API request failed: ${e.message}")
             }
         }
 

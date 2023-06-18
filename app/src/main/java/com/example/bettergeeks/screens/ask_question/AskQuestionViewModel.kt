@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bettergeeks.data.dao.remote.FirebaseRepository
-import com.example.bettergeeks.data.dao.remote.OpenAiRepository
+import com.example.bettergeeks.data.repository.FirebaseRepository
+import com.example.bettergeeks.data.repository.OpenAiRepository
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.data.repository.TopicRepository
@@ -63,6 +63,9 @@ class AskQuestionViewModel @Inject constructor(
             _textResponse.value = answer
             if (answer is ResponseData.Success) {
                 generateImageFromText(formattedQuestion, answer.data)
+            }
+            else {
+                isProcessing = false
             }
         }
     }

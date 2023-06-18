@@ -12,18 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //supportActionBar?.setDisplayHomeAsUpEnabled
         showActionBar()
     }
 
-    fun showActionBar() {
+    private fun showActionBar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.show()
     }
-
-    fun hideActionBar() {
-        setSupportActionBar(null)
-        supportActionBar?.hide()
-    }
-
 }

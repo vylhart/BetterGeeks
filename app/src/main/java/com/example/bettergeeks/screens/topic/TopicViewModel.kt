@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bettergeeks.data.dao.remote.FirebaseRepository
+import com.example.bettergeeks.data.repository.FirebaseRepository
 import com.example.bettergeeks.data.model.local.TopicData
 import com.example.bettergeeks.data.repository.TopicRepository
 import com.example.bettergeeks.utils.Common.TAG
@@ -31,9 +31,9 @@ class TopicViewModel @Inject constructor(private val repository: TopicRepository
                 _list.value = it
             }
         }
+
         viewModelScope.launch {
             firebaseRepository.getAllTopics()
-
         }
 
     }

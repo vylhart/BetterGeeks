@@ -22,6 +22,9 @@ interface QuestionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertQuestion(question: QuestionData)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertQuestionList(list: List<QuestionData>)
+
     @Delete
     fun deleteQuestion(question: QuestionData)
 }

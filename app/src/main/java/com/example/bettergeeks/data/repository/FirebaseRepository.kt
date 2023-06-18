@@ -1,10 +1,9 @@
-package com.example.bettergeeks.data.dao.remote
+package com.example.bettergeeks.data.repository
 
 import android.util.Log
 import com.example.bettergeeks.data.dao.local.QuestionDao
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.data.model.local.TopicData
-import com.example.bettergeeks.data.repository.TopicRepository
 import com.example.bettergeeks.screens.questions.LikeStatus
 import com.example.bettergeeks.utils.Common.TAG
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +11,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -64,17 +65,29 @@ class FirebaseRepository @Inject constructor(private val topicRepository: TopicR
                 return@addSnapshotListener
             }
 
-            for (doc in querySnapshot) {
-                scope.launch {
+            val list = querySnapshot.map { doc ->
+                scope.async {
                     val data = doc.toObject(QuestionData::class.java)
                     val topicRef = firebase.collection(questionPath).document(data.topicId).collection(questionPath).document(data.id)
-                    val likes = topicRef.collection("likes").count().query.get().await().count()
-                    val dislikes = topicRef.collection("dislikes").count().query.get().await().count()
-                    val isLikedByMe = topicRef.collection("likes").document(userId).get().await().exists()
-                    val isDislikedByMe = topicRef.collection("dislikes").document(userId).get().await().exists()
+
+                    val likesDeferred = async { topicRef.collection("likes").get().await().size() }
+                    val dislikesDeferred = async { topicRef.collection("dislikes").get().await().size() }
+                    val isLikedByMeDeferred = async { topicRef.collection("likes").document(userId).get().await().exists() }
+                    val isDislikedByMeDeferred = async { topicRef.collection("dislikes").document(userId).get().await().exists() }
+
+                    val likes = likesDeferred.await()
+                    val dislikes = dislikesDeferred.await()
+                    val isLikedByMe = isLikedByMeDeferred.await()
+                    val isDislikedByMe = isDislikedByMeDeferred.await()
+
                     Log.i(TAG, "getAllQuestionsByTopic: $likes $dislikes $isLikedByMe $isDislikedByMe $userId")
-                    questionDao.insertQuestion(data.copy(likes = likes, dislikes = dislikes, isLiked = isLikedByMe, isDisliked = isDislikedByMe))
+                    data.copy(likes = likes, dislikes = dislikes, isLiked = isLikedByMe, isDisliked = isDislikedByMe)
                 }
+            }
+
+            scope.launch {
+                val questionList = list.awaitAll()
+                questionDao.insertQuestionList(questionList)
             }
         }
     }

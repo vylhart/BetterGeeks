@@ -3,7 +3,7 @@ package com.example.bettergeeks.screens.questions
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bettergeeks.data.dao.remote.FirebaseRepository
+import com.example.bettergeeks.data.repository.FirebaseRepository
 import com.example.bettergeeks.data.model.local.QuestionData
 import com.example.bettergeeks.data.repository.QuestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
