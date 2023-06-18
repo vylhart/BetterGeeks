@@ -19,7 +19,7 @@ class TopicCardViewHolder(private val binding: CardTopicBinding) :
         binding.apply {
             root.setOnClickListener { handleClick(data) }
             textView.text = data.topicName
-            imageView.setBackgroundResource(getColor(position))
+            cardView.setBackgroundResource(getColor(position))
         }
     }
 
