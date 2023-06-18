@@ -64,8 +64,8 @@ class FirebaseRepository @Inject constructor(private val topicRepository: TopicR
                 return@addSnapshotListener
             }
 
-            scope.launch {
-                for (doc in querySnapshot) {
+            for (doc in querySnapshot) {
+                scope.launch {
                     val data = doc.toObject(QuestionData::class.java)
                     val topicRef = firebase.collection(questionPath).document(data.topicId).collection(questionPath).document(data.id)
                     val likes = topicRef.collection("likes").count().query.get().await().count()

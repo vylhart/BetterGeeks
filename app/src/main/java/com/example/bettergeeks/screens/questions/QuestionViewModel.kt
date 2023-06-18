@@ -23,6 +23,9 @@ class QuestionViewModel @Inject constructor(private val repository: QuestionRepo
                 _list.value = it
             }
         }
+    }
+
+    fun fetchData(topicId: String) {
         viewModelScope.launch {
             firebaseRepository.getAllQuestionsByTopic(topicId)
         }

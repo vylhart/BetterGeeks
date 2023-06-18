@@ -6,6 +6,7 @@ import android.view.animation.LinearInterpolator
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
+import com.example.bettergeeks.data.shared_preference.LocalCache
 import com.example.bettergeeks.screens.recycler.ListFragment
 import com.example.bettergeeks.utils.Common
 import com.example.bettergeeks.utils.Common.KEY_TOPIC_ID
@@ -25,6 +26,11 @@ class QuestionListFragment : ListFragment(), CardStackListener {
         arguments?.getString(KEY_TOPIC_ID)?.let {
             Log.i(TAG, "init: $it")
             viewModel.getData(it)
+            val isProcessed = LocalCache.isRequestProcessedWithinTimeWindow(requireActivity(), it)
+            if (!isProcessed) {
+                viewModel.fetchData(it)
+                LocalCache.markRequestAsProcessed(requireActivity(), it)
+            }
         }
 
         viewModel.list.observe(requireActivity()) {
@@ -45,7 +51,6 @@ class QuestionListFragment : ListFragment(), CardStackListener {
                 supportsChangeAnimations = false
             }
         }
-
     }
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {

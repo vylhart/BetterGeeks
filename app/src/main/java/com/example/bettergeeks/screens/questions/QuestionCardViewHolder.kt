@@ -33,7 +33,6 @@ class QuestionCardViewHolder(private val binding: CardQuestionBinding, activity:
             answerView.text = data.answer
             likeTv.text = data.likes.toString()
             dislikeTv.text = data.dislikes.toString()
-            Log.i(TAG, "bind: ${data.imageUrl}")
             if(data.isLiked) {
                 likeIv.imageTintList = ContextCompat.getColorStateList(likeIv.context, R.color.blue)
                 state = LikeStatus.LIKED
