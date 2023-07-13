@@ -8,13 +8,14 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.bettergeeks.databinding.FragmentAddTopicBinding
+import com.example.bettergeeks.screens.topic.TopicViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class AddTopicFragment : DialogFragment() {
     private lateinit var binding: FragmentAddTopicBinding
-    private val viewModel: AddTopicViewModel by viewModels()
+    private val viewModel: TopicViewModel by viewModels()
 
 
     override fun onCreateView(

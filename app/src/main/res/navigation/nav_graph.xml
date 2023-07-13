@@ -14,17 +14,11 @@
             android:id="@+id/action_topicFragment_to_questionListFragment"
             app:destination="@id/questionListFragment" />
         <action
-            android:id="@+id/action_topicFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-        <action
             android:id="@+id/action_topicFragment_to_addTopicFragment"
             app:destination="@id/addTopicFragment" />
         <action
             android:id="@+id/action_topicFragment_to_askQuestionFragment"
             app:destination="@id/askQuestionFragment" />
-        <action
-            android:id="@+id/action_topicFragment_to_reviewQuestionFragment"
-            app:destination="@id/reviewQuestionFragment" />
     </fragment>
 
     <fragment
@@ -54,7 +48,11 @@
         android:id="@+id/askQuestionFragment"
         android:name="com.example.bettergeeks.screens.ask_question.AskQuestionFragment"
         android:label="fragment_ask_question"
-        tools:layout="@layout/fragment_ask_question" />
+        tools:layout="@layout/fragment_ask_question" >
+        <action
+            android:id="@+id/action_askQuestionFragment_to_reviewQuestionFragment"
+            app:destination="@id/reviewQuestionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reviewQuestionFragment"
         android:name="com.example.bettergeeks.screens.review.ReviewQuestionFragment"

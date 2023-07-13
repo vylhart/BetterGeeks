@@ -17,13 +17,12 @@ import com.example.bettergeeks.utils.Common
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TopicFragment : ListFragment() {
+class TopicFragment : ListFragment(), MenuProvider {
     private val viewModel: TopicViewModel by viewModels()
 
     override fun init() {
         Log.i(TAG, "init: ")
-        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
+        (requireActivity() as MenuHost).addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         binding.recyclerView.layoutManager = GridLayoutManager(activity, 2)
         viewModel.list.observe(requireActivity()) {
             adapter.submitList(it)
@@ -31,27 +30,25 @@ class TopicFragment : ListFragment() {
         }
     }
 
-    private val menuProvider = object : MenuProvider {
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menuInflater.inflate(R.menu.nav_menu, menu)
-        }
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+    }
 
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            when (menuItem.itemId) {
-                R.id.nav_ask_question -> {
-                    findNavController().navigate(R.id.action_topicFragment_to_askQuestionFragment)
-                }
-
-                R.id.nav_add_topic -> {
-                    AddTopicFragment().show(parentFragmentManager, "AddTopicFragment")
-                }
-
-                else -> {
-                    return false
-                }
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.nav_ask_question -> {
+                findNavController().navigate(R.id.action_topicFragment_to_askQuestionFragment)
             }
-            return true
+
+            R.id.nav_add_topic -> {
+                AddTopicFragment().show(parentFragmentManager, "AddTopicFragment")
+            }
+
+            else -> {
+                return false
+            }
         }
+        return true
     }
 
     companion object {

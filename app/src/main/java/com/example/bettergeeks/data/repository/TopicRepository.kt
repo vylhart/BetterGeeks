@@ -3,12 +3,17 @@ package com.example.bettergeeks.data.repository
 import com.example.bettergeeks.data.dao.local.TopicDao
 import com.example.bettergeeks.data.model.local.TopicData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class TopicRepository @Inject constructor(private val topicDao: TopicDao) {
 
-    fun getAllTopics() = topicDao.getAllTopics()
+    fun getAllTopics() = flow {
+        topicDao.getAllTopics().collect {
+            emit(it.sortedBy { topicData -> topicData.topicName })
+        }
+    }
 
     fun getTopicById(id: Int) = topicDao.getTopicById(id)
 

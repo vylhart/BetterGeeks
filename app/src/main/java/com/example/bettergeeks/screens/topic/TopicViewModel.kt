@@ -35,6 +35,12 @@ class TopicViewModel @Inject constructor(private val repository: TopicRepository
         viewModelScope.launch {
             firebaseRepository.getAllTopics()
         }
+    }
 
+    fun addTopic(topicName: String) {
+        viewModelScope.launch {
+            Log.i(TAG, "addTopic: ")
+            firebaseRepository.addTopic(TopicData(topicName, 0))
+        }
     }
 }
