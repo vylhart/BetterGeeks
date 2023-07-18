@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/topicFragment"
-        android:name="com.example.bettergeeks.screens.topic.TopicFragment"
+        android:name="com.kudesta.bettergeeks.screens.topic.TopicFragment"
         android:label="fragment_topic"
         tools:layout="@layout/fragment_list">
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/questionListFragment"
-        android:name="com.example.bettergeeks.screens.questions.QuestionListFragment"
+        android:name="com.kudesta.bettergeeks.screens.questions.QuestionListFragment"
         android:label="fragment_question_list"
         tools:layout="@layout/fragment_list">
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.bettergeeks.screens.detail.DetailFragment"
+        android:name="com.kudesta.bettergeeks.screens.detail.DetailFragment"
         android:label="fragment_difficulty"
         tools:layout="@layout/fragment_detail">
         <action
@@ -41,12 +41,12 @@
     </fragment>
     <fragment
         android:id="@+id/addTopicFragment"
-        android:name="com.example.bettergeeks.screens.add_topic.AddTopicFragment"
+        android:name="com.kudesta.bettergeeks.screens.add_topic.AddTopicFragment"
         android:label="fragment_add_topic"
         tools:layout="@layout/fragment_add_topic" />
     <fragment
         android:id="@+id/askQuestionFragment"
-        android:name="com.example.bettergeeks.screens.ask_question.AskQuestionFragment"
+        android:name="com.kudesta.bettergeeks.screens.ask_question.AskQuestionFragment"
         android:label="fragment_ask_question"
         tools:layout="@layout/fragment_ask_question" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/reviewQuestionFragment"
-        android:name="com.example.bettergeeks.screens.review.ReviewQuestionFragment"
+        android:name="com.kudesta.bettergeeks.screens.review.ReviewQuestionFragment"
         android:label="fragment_review_question"
         tools:layout="@layout/fragment_review_question" />
 </navigation>

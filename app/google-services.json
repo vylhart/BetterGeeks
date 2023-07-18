@@ -9,7 +9,36 @@
       "client_info": {
         "mobilesdk_app_id": "1:393605893326:android:fe6a714bb8c337303cd49f",
         "android_client_info": {
-          "package_name": "com.example.bettergeeks"
+          "package_name": "com.kudesta.bettergeeks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393605893326-dfetbuuavuorb8u1mqugsdb695nc808b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJKrYL_GdlItMrP1e1jJGr-MBpzmMqh4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393605893326-dfetbuuavuorb8u1mqugsdb695nc808b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393605893326:android:585e3ab0ca2fdce73cd49f",
+        "android_client_info": {
+          "package_name": "com.kudesta.bettergeeks"
         }
       },
       "oauth_client": [

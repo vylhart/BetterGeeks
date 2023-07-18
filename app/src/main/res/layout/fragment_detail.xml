@@ -18,7 +18,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <com.example.bettergeeks.screens.recycler.ResponseView
+        <com.kudesta.bettergeeks.screens.recycler.ResponseView
             android:id="@+id/responseLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
