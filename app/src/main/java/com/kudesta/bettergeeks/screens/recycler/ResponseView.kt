@@ -8,12 +8,12 @@ import android.widget.TextView
 import com.kudesta.bettergeeks.databinding.ResponseViewBinding
 
 
-class ResponseView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, ) : LinearLayout(context, attrs) {
+class ResponseView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
 
     private val binding = ResponseViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setQuestion(question: String) {
-        binding.questionText.text = question
+        //binding.questionText.text = question
     }
     fun setText(text: String) {
         //binding.buttonSaveAnswer.visibility = VISIBLE

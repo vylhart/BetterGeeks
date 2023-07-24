@@ -25,9 +25,9 @@
                 android:inputType="text|textCapSentences"
                 android:maxLines="4"
                 android:minHeight="48dp"
-                android:padding="5dp"
+                android:paddingHorizontal="10dp"
                 android:scrollHorizontally="true"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/black_white" />
 
             <Spinner
                 android:id="@+id/spinner"

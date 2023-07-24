@@ -27,9 +27,16 @@
     <color name="pink_light">#F6CCDB</color>
     <color name="gray">#343435</color>
 
-    <color name="action_bar_color">#060C16</color>
+    <color name="pink_background">#FBF6F8</color>
+    <color name="dark_blue">#010C1F</color>
+
+    <color name="white_black">@color/white</color>
+    <color name="black_white">@color/black</color>
+    <color name="pink_blue">@color/pink_background</color>
+    <color name="input_background">@color/pink_background</color>
+
+    <color name="action_bar_color">@color/pink_blue</color>
     <color name="background_dark">#080f1a</color>
     <color name="background_dark_light">#121E2E</color>
 
-    <color name="status_bar_color">#408AAC</color>
 </resources>
