@@ -11,11 +11,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestionViewModel @Inject constructor(private val repository: QuestionRepository, private val firebaseRepository: FirebaseRepository) :
-    ViewModel() {
+class QuestionViewModel @Inject constructor(private val repository: QuestionRepository, private val firebaseRepository: FirebaseRepository) : ViewModel() {
 
     private val _list = MutableLiveData(listOf<QuestionData>())
     val list: MutableLiveData<List<QuestionData>> = _list
+
+    var currentPosition: Int = 0
+    var topicId: String = ""
 
     fun getData(topicId: String) {
         viewModelScope.launch {

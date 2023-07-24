@@ -128,8 +128,7 @@ class QuestionCardViewHolder(private val binding: CardQuestionBinding, activity:
 
     private fun handleClick(data: Data) {
         val bundle = bundleOf(Common.KEY_QUESTION_ID to data)
-        binding.answerView.findNavController()
-            .navigate(R.id.action_questionListFragment_to_detailFragment, bundle)
+        //binding.answerView.findNavController().navigate(R.id.action_questionListFragment_to_detailFragment, bundle)
     }
 }
 

@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 object LocalCache {
     private const val PREF_NAME = "RequestPreference"
     private const val KEY_TIMESTAMP_PREFIX = "timestamp_"
+    private const val KEY_TOPIC_PREFIX = "topic_"
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -30,6 +31,19 @@ object LocalCache {
         sharedPreferences.edit {
             putLong(KEY_TIMESTAMP_PREFIX + requestId, currentTime)
         }
+    }
+
+
+    fun saveLastCardPosition(context:Context, topicId: String, position: Int) {
+        val sharedPreferences = getSharedPreferences(context)
+        sharedPreferences.edit {
+            putInt(KEY_TOPIC_PREFIX+topicId, position)
+        }
+    }
+
+    fun getLastCardPosition(context: Context, topicId: String): Int {
+        val sharedPreferences = getSharedPreferences(context)
+        return sharedPreferences.getInt(KEY_TOPIC_PREFIX+topicId, 0)
     }
 
     // Extension function to simplify SharedPreferences editing
